@@ -300,7 +300,11 @@ final class QuestionPanel: NSPanel {
     override var canBecomeMain: Bool { false }
     override func resignKey() {
         super.resignKey()
-        orderOut(nil)
+        // Let the menu-bar mouseDown toggle run before hiding on focus loss.
+        DispatchQueue.main.async { [weak self] in
+            guard let self, !self.isKeyWindow else { return }
+            self.orderOut(nil)
+        }
     }
     var onPaste: (() -> Void)?
     var onEscape: (() -> Void)?
@@ -342,7 +346,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         panel.standardWindowButton(.zoomButton)?.isHidden = true
         panel.isMovableByWindowBackground = true
         panel.level = .floating; panel.isReleasedWhenClosed = false
-        panel.hidesOnDeactivate = true
+        panel.hidesOnDeactivate = false
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
         let host = ReceivingHost(rootView: QuestionView(model: model, close: { [weak self] in self?.panel.orderOut(nil) }))
         host.registerForDraggedTypes(NSReadPasteboard.types)
@@ -402,6 +406,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(.separator())
         menu.addItem(withTitle: "Quit wdym", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         NSMenu.popUpContextMenu(menu, with: event, for: view)
+    }
+    func applicationDidResignActive(_ notification: Notification) {
+        DispatchQueue.main.async { [weak self] in
+            guard !NSApp.isActive else { return }
+            self?.panel.orderOut(nil)
+        }
     }
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool { showPanel(); return true }

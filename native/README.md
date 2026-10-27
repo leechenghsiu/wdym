@@ -52,3 +52,14 @@ The sentence blank is now an editable, automatically focused TextField. Return s
 ## Build 8 — hide on blur
 
 The floating panel orders itself out when it resigns key status and hides when the app deactivates. Installed build verified by opening the panel, moving focus to Finder, and checking the visible-app inventory without reactivating wdym.
+
+## Build 9 — menu-bar toggle after blur
+
+Focus-loss dismissal waits until the current event finishes, so the menu-bar click can close a visible panel before auto-hide runs. App deactivation uses the same deferred dismissal instead of NSPanel's immediate hide. `Tests/PanelToggleTests.swift` reproduces the focus-loss-before-toggle ordering and verifies ordinary blur still hides; it failed before this fix and passes afterward.
+
+```sh
+xcrun swiftc -parse-as-library -D WDYM_DRAG_TEST native/Sources/Core.swift native/Sources/WDYM.swift native/Tests/PanelToggleTests.swift -framework AppKit -framework SwiftUI -framework FoundationModels -o /tmp/wdym-panel-tests
+/tmp/wdym-panel-tests
+```
+
+Run the regression command from the repository root in a logged-in macOS desktop session.

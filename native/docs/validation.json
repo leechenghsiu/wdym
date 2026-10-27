@@ -10,7 +10,7 @@
   "cloudFallback": false,
   "apiKeys": false,
   "oldWebServer": "stopped",
-  "build": "8",
+  "build": "9",
   "interfaceLanguage": "en",
   "answerLanguage": "en",
   "chineseInputEnglishAnswerVerified": true,
@@ -31,5 +31,6 @@
   "modelLinkUnderlineOnHover": true,
   "menuWidth": "measured title width + 10pt",
   "hideOnBlur": true,
-  "blurVerification": "Opened installed panel, clicked Finder, then confirmed wdym absent from visible-app inventory without reactivating it."
+  "blurVerification": "Opened installed panel, clicked Finder, then confirmed wdym absent from visible-app inventory without reactivating it.",
+  "menuToggleRegression": "AppKit lifecycle regression failed before fix and passes after: focus loss before menu toggle closes; ordinary focus loss hides after event dispatch."
 }
