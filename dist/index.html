@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f5f0">
+  <title>wdym? — a little clarity.</title>
+  <link rel="stylesheet" href="transitions.css">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.mjs"></script>
+</head>
+<body>
+  <header class="masthead"><a class="wordmark" href="./" aria-label="wdym 首頁">wdym<span>?</span></a><span class="edition"><span class="status-dot"></span>INTERACTION STUDY / 001</span><button id="about" class="quiet-button">這是什麼 <span aria-hidden="true">↗</span></button></header>
+  <main>
+    <section class="workspace" aria-labelledby="tagline">
+      <p id="tagline" class="eyebrow">A LITTLE LESS “HUH?”</p>
+      <div class="question" id="question">
+        <span class="prefix">wdym</span>
+        <button id="dropzone" class="dropzone t-resize" aria-label="放入想問的文字；點一下也可以貼上" aria-describedby="hint">
+          <span id="drop-label" class="drop-label"></span>
+          <span class="drop-prompt" id="drop-prompt" aria-hidden="true">drop it here</span>
+          <span class="drop-rule" aria-hidden="true"></span>
+        </button>
+        <span class="punctuation">?</span>
+      </div>
+      <p class="hint" id="hint">把不懂的那句，拖進空格裡。<span class="hint-divider">/</span><button id="paste-trigger">也可以貼上 <span aria-hidden="true">↗</span></button></p>
+      <form id="paste-form" class="paste-form" hidden>
+        <label for="paste-input">你想問的是哪一句？</label>
+        <textarea id="paste-input" placeholder="貼上文字，或直接寫下你的問題…" rows="3" maxlength="40000"></textarea>
+        <div class="paste-actions"><span>⌘ / Ctrl + Enter 送出</span><button type="button" id="paste-cancel" class="quiet-button">取消</button><button type="submit" class="ink-button">wdym? <span aria-hidden="true">↵</span></button></div>
+      </form>
+      <p id="error" role="alert" hidden></p>
+      <div class="loading" id="loading" role="status" hidden><span class="loading-dots" aria-hidden="true"><i></i><i></i><i></i></span>把這句拆開來看…</div>
+      <div class="answer-wrap" id="answer-wrap" hidden>
+        <article id="answer" class="answer t-panel-slide" data-open="false" aria-labelledby="answer-title">
+          <div class="answer-meta"><span><span class="small-star" aria-hidden="true">✳</span> IN OTHER WORDS</span><span class="demo-label">示範解釋</span></div>
+          <details class="original" id="original"><summary>你剛才放進來的文字 <span aria-hidden="true">⌄</span></summary><p id="original-text"></p></details>
+          <h1 id="answer-title" tabindex="-1"></h1>
+          <p id="answer-body" class="answer-body"></p>
+          <p id="answer-detail" class="answer-detail"></p>
+          <details id="example" class="example"><summary>舉個例子 <span class="plus" aria-hidden="true">+</span></summary><p id="example-text"></p></details>
+          <p id="answer-note" class="answer-note"></p>
+          <div class="answer-footer"><button id="reset" class="quiet-button"><span aria-hidden="true">↶</span> 換一句問</button><button id="save" class="save-button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.5h10v13l-5-3-5 3z"/></svg><span id="save-label">Keep as .md</span></button></div>
+        </article>
+      </div>
+      <div class="examples" id="examples"><span class="examples-label">沒靈感？拖一個試試</span><div id="sample-list" class="sample-list"></div><span class="examples-footnote">也可以點選，看看會發生什麼。</span></div>
+    </section>
+  </main>
+  <footer class="page-footer"><span>stay curious.</span><span>本機互動原型 <span class="footer-dot">·</span> 尚未連接 AI</span><span class="footer-no">NO. 001 — WDYM</span></footer>
+  <dialog id="about-dialog"><button id="about-close" class="dialog-close" aria-label="關閉說明">×</button><span class="eyebrow">WHAT DO YOU MEAN?</span><h2>小問題，<br>不用另外開一場對話。</h2><p>從另一個視窗拖一段文字進來，或試試頁面上的例子。文字會補成一句問題，解釋就留在它下面。</p><p>這版驗證的是互動；三個例子使用預先寫好的說明，其他文字會顯示尚未接 AI 的提示。沒有資料上傳，也不會自動儲存；Keep 會下載一份 Markdown。</p></dialog>
+  <div id="live" class="sr-only" role="status" aria-live="polite"></div>
+</body>
+</html>

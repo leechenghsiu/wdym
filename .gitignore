@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+.AppleDouble
+
+# Native build outputs
+native/build/
+.build/
+DerivedData/
+*.dSYM/
+
+# Local logs and demo editing artifacts
+*.log
+demo/
+
+# Local configuration and dependencies
+.env
+.env.*
+!.env.example
+node_modules/
